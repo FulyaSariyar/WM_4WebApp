@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayoutKullanimi", "LayoutKullanimi\LayoutKullanimi.csproj", "{33896162-0675-45F4-AB6B-27B977E61C02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LayoutKullanimi", "LayoutKullanimi\LayoutKullanimi.csproj", "{33896162-0675-45F4-AB6B-27B977E61C02}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gun1", "Gun1", "{50D15861-DB30-45E6-BF33-5D622F93837C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "E-Ticaret", "E-Ticaret", "{89F7C37E-F4D7-4748-8494-74FC2118A26A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItServiceApp", "ItServiceApp\ItServiceApp.csproj", "{4FCC712E-87F7-4EDF-AD85-9D40D75E11DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +21,17 @@ Global
 		{33896162-0675-45F4-AB6B-27B977E61C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33896162-0675-45F4-AB6B-27B977E61C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33896162-0675-45F4-AB6B-27B977E61C02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FCC712E-87F7-4EDF-AD85-9D40D75E11DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FCC712E-87F7-4EDF-AD85-9D40D75E11DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FCC712E-87F7-4EDF-AD85-9D40D75E11DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FCC712E-87F7-4EDF-AD85-9D40D75E11DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{33896162-0675-45F4-AB6B-27B977E61C02} = {50D15861-DB30-45E6-BF33-5D622F93837C}
+		{4FCC712E-87F7-4EDF-AD85-9D40D75E11DE} = {89F7C37E-F4D7-4748-8494-74FC2118A26A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {11286E48-B5ED-406B-9A5E-E42B2A2BD4E8}
