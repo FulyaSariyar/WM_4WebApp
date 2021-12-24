@@ -3,22 +3,12 @@
     ViewBag.Title = "Kayıt Ol";
 }
 
-    <!--====== Page Title start ======-->
-    <section class="page-title-area">
-        <div class="container">
-            <h2 class="title">@ViewBag.Title</h2>
-            <ul class="breadcrumb-nav">
-                <li><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
-                <li class="active">@ViewBag.Title</li>
-            </ul>
-        </div>
-    </section>
-    <!--====== Page Title End ======-->
+    <partial name="Partials/_PageStartPartial" />
     <!--====== Shoping Checkout Start  ======-->
     <section class="shoping-checkout-area section-gap">
         <div class="container">
             <div class="user-actions mb-40">
-                <p>Returning customer? <a href="#">Click here to login</a></p>
+                 <p>Üyeliğiniz var mı? <a asp-controller="Account" asp-action="Login"> Giriş için Tıklayın</a></p>
             </div>
             @*<div asp-validation-summary="All" class="text-danger"></div>*@
             <form methot="post" asp-controller="Account" asp-action="Register">
@@ -30,7 +20,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label asp-for="UserName"></label>
-                                        <input form="UserName" />
+                                        <input asp-for="UserName" />
                                         <span asp-validation-for="UserName" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -69,9 +59,9 @@
                                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class"payment-box mt-30"></div>
-                                    <input type="submit" class="main-btn" value="Kayıt ol"/>
+                                <div class="col-lg-4">
+                                <div class="payment-box mt-30">
+                                    <input type="submit" class="main-btn" value="Kayıt Ol" />
                                 </div>
                            
                             </div>

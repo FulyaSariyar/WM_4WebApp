@@ -34,6 +34,9 @@ namespace ItServiceApp
                 {
                     options.Password.RequireDigit = true;
                     options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
                     options.Password.RequiredLength = 5;
 
                     options.Lockout.MaxFailedAccessAttempts = 3;
@@ -47,6 +50,8 @@ namespace ItServiceApp
             services.ConfigureApplicationCookie(options =>
             {
                 //Cookie settings
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
@@ -68,7 +73,11 @@ namespace ItServiceApp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+           
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
