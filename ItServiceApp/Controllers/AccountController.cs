@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ItServiceApp.Models;
 using ItServiceApp.Models.Identity;
+using ItServiceApp.Services;
 using ItServiceApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,15 +15,19 @@ namespace ItServiceApp.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly IEmailSender _emailSender;
         public AccountController(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 RoleManager<ApplicationRole> roleManager
-                                )
+                                 , IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _emailSender = emailSender;
+
             CheckRoles();
+           
         }
 
         private void CheckRoles()
@@ -108,6 +113,7 @@ namespace ItServiceApp.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+           
             return View();
         }
         [HttpPost]
@@ -120,7 +126,14 @@ namespace ItServiceApp.Controllers
             var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                
+                    await _emailSender.SendAsync(new EmailMessage()
+                    {
+                        Contacts = new string[] { "fulyasariyar@outlook.com" },
+                        Body = $"{HttpContext.User.Identity.Name} Sisteme giriş yaptı!",
+                        Subject = $"Merhaba {HttpContext.User.Identity.Name}"
+                    });
+                    return RedirectToAction("Index", "Home");
             }
             else
             {
