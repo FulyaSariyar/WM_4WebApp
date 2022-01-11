@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gun1", "Gun1", "{50D15861-D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "E-Ticaret", "E-Ticaret", "{89F7C37E-F4D7-4748-8494-74FC2118A26A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItServiceApp", "ItServiceApp\ItServiceApp.csproj", "{4FCC712E-87F7-4EDF-AD85-9D40D75E11DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItServiceApp", "ItServiceApp\ItServiceApp.csproj", "{4FCC712E-87F7-4EDF-AD85-9D40D75E11DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

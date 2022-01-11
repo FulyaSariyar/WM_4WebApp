@@ -9,6 +9,7 @@ namespace ItServiceApp.MappersProfiles
         public AccountProfile()
         {
             CreateMap<ApplicationUser, UserProfileViewModel>().ReverseMap();
+            //CreateMap<UserProfileViewModel, ApplicationUser>();// reversemap kullandığımız için gerek yok!
         }
 
     }

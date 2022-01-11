@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace ItServiceApp.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -58,6 +59,7 @@ namespace ItServiceApp.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -132,8 +134,7 @@ namespace ItServiceApp.Controllers
             }
             return View();
         }
-
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
@@ -158,13 +159,13 @@ namespace ItServiceApp.Controllers
 
             return View();
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -177,12 +178,12 @@ namespace ItServiceApp.Controllers
 
             if (result.Succeeded)
             {
-                await _emailSender.SendAsync(new EmailMessage()
-                {
-                    Contacts = new string[] { "abc@ww.com" },
-                    Body = $"{HttpContext.User.Identity.Name} Sisteme giriş yaptı!",
-                    Subject = $"Merhaba {HttpContext.User.Identity.Name}"
-                });
+                //await _emailSender.SendAsync(new EmailMessage()
+                //{
+                //    Contacts = new string[] { "abc@ww.com" },
+                //    Body = $"{HttpContext.User.Identity.Name} Sisteme giriş yaptı!",
+                //    Subject = $"Merhaba {HttpContext.User.Identity.Name}"
+                //});
 
                 return RedirectToAction("Index", "Home");
             }
@@ -192,15 +193,11 @@ namespace ItServiceApp.Controllers
                 return View(model);
             }
         }
-
-        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
-        [Authorize]
         public async Task<IActionResult> Profile()
         {
             var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
@@ -212,7 +209,8 @@ namespace ItServiceApp.Controllers
             //    Surname = user.Surname
             //};
 
-            var model =_mapper.Map<UserProfileViewModel>(user);
+            var model = _mapper.Map<UserProfileViewModel>(user);
+
 
             return View(model);
         }
@@ -220,6 +218,7 @@ namespace ItServiceApp.Controllers
         public async Task<IActionResult> Profile(UserProfileViewModel model)
         {
             //var userModel = _mapper.Map<ApplicationUser>(model);
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -264,5 +263,35 @@ namespace ItServiceApp.Controllers
             return View(model);
         }
 
+        public IActionResult PasswordUpdate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PasswordUpdate(PasswordUpdateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                //email gönder
+
+                TempData["Message"] = "Şifre değiştirme işleminiz başarılı";
+                return View();
+            }
+            else
+            {
+                var message = string.Join("<br>", result.Errors.Select(x => x.Description));
+                TempData["Message"] = message;
+                return View();
+            }
+        }
     }
 }
