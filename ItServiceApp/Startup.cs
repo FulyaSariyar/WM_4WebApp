@@ -1,5 +1,6 @@
 using ItServiceApp.Data;
 using ItServiceApp.InjectOrnek;
+using ItServiceApp.MappersProfiles;
 using ItServiceApp.Models.Identity;
 using ItServiceApp.Services;
 using Microsoft.AspNetCore.Builder;
@@ -63,11 +64,18 @@ namespace ItServiceApp
                 options.SlidingExpiration = true;
 
             });
+
+            services.AddAutoMapper(options =>
+            {
+                options.AddProfile(typeof(AccountProfile));
+            });
+ 
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IMyDependency, NewMyDependency>(); //Dikkat!!!!! loose coupling 
 
 
             services.AddControllersWithViews();
+
            
         }
 
