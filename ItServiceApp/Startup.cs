@@ -72,7 +72,8 @@ namespace ItServiceApp
  
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IMyDependency, NewMyDependency>(); //Dikkat!!!!! loose coupling 
-
+            services.AddScoped<IPaymentService, IyzicoPaymentService>();
+            
 
             services.AddControllersWithViews();
 
