@@ -10,5 +10,6 @@ namespace ItServiceApp.ViewModels
         public decimal Amount  { get; set; }
         public decimal PaidAmount  { get; set; }
         public int Installment { get; set; }
+        
     }
 }
