@@ -28,7 +28,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label asp-for="CardModel.CardNumber"></label>
-                                    <input asp-for="CardModel.CardNumber"/>
+                                    <input asp-for="CardModel.CardNumber" id="txtCardNumber"/>
                                     <span asp-validation-for="CardModel.CardNumber" class="text-danger"></span>
                                 </div>
                             </div>
@@ -146,6 +146,43 @@
     </div>
 </section>
 <!--====== Shoping Checkout End ======-->
+
+@section Scripts
+{ 
+<script>
+
+
+    $("#txtCardNumber").keyup(function ()
+    {
+        var bin = $(this).val();
+        if (bin.length === 6)
+        {
+            console.log(bin);
+            var model =
+            {
+                binNumber: bin
+            };
+            $.ajax
+                ({
+                    url: '@Url.Action("CheckInstallment","Payment")',
+                    type: "POST",
+                    data: model,
+                    dataType: "json",
+                    error: function (request, status, error) {
+                        console.log(request);
+                    },
+                    success: function (response) {
+                        console.log(response);
+                    }
+
+            });
+        }
+    });
+</script>
+}
+
+
+}
 @section Styles
 {
 <style>
