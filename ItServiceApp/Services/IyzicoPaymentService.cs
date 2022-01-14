@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using AutoMapper;
 using ItServiceApp.Models;
 using ItServiceApp.Models.Identity;
 using ItServiceApp.Models.Payment;
@@ -7,100 +10,124 @@ using Iyzipay.Request;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using MUsefulMethods;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace ItServiceApp.Services
 {
     public class IyzicoPaymentService : IPaymentService
     {
-       
-       private readonly IConfiguration _configuration;
-       private readonly IyzicoPaymentOptions _options;
-       private readonly IMapper _mapper;
-       private readonly UserManager<ApplicationUser> _userManager;
-
-
-        public IyzicoPaymentService (IConfiguration configuration, IMapper mapper, UserManager<ApplicationUser> _userManager )
+        private readonly IConfiguration _configuration;
+        private readonly IyzicoPaymentOptions _options;
+        private readonly IMapper _mapper;
+        private readonly UserManager<ApplicationUser> _userManager;
+        public IyzicoPaymentService(IConfiguration configuration, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
-            _mapper=mapper;
             _configuration = configuration;
-            var section = configuration.GetSection(IyzicoPaymentOptions.Key);
+            _mapper = mapper;
+            _userManager = userManager;
+            var section = _configuration.GetSection(IyzicoPaymentOptions.Key);
             _options = new IyzicoPaymentOptions()
             {
                 ApiKey = section["ApiKey"],
-                SecretKey=section["SecretKey"],
-                BaseUrl=section["BaseUrl"],
-                ThreedsCallbackUrl=section["ThreedsCallbackUrl"],
-
-
+                SecretKey = section["SecretKey"],
+                BaseUrl = section["BaseUrl"],
+                ThreedsCallbackUrl = section["ThreedsCallbackUrl"],
             };
         }
+
         private string GenerateConversationId()
         {
             return StringHelpers.GenerateUniqueCode();
         }
+
         private CreatePaymentRequest InitialPaymentRequest(PaymentModel model)
         {
-           
-            var paymentRequest = new CreatePaymentRequest();
-
-            paymentRequest.Installment = model.Installment;
-            paymentRequest.Locale=Locale.TR.ToString();
-            paymentRequest.ConversationId = GenerateConversationId();
-            paymentRequest.Price = model.Price.ToString(new CultureInfo("en-US"));
-            paymentRequest.PaidPrice = model.PaidPrice.ToString(new CultureInfo("en-US"));
-            paymentRequest.BasketId = StringHelpers.GenerateUniqueCode();
-            paymentRequest.PaymentChannel = PaymentChannel.WEB.ToString();
-            paymentRequest.PaymentGroup = PaymentGroup.SUBSCRIPTION.ToString();
-
-            var buyer = new Buyer()
+            var paymentRequest = new CreatePaymentRequest
             {
-                Id = "BY789",
-                Name = "John",
-                Surname = "Doe",
-                GsmNumber = "+905350000000",
-                Email = "email@email.com",
-                IdentityNumber = "74300864791",
-                LastLoginDate = "2015-10-05 12:43:35",
-                RegistrationDate = "2013-04-21 15:12:09",
+                Installment = model.Installment,
+                Locale = Locale.TR.ToString(),
+                ConversationId = GenerateConversationId(),
+                Price = model.Price.ToString(new CultureInfo("en-US")),
+                PaidPrice = model.PaidPrice.ToString(new CultureInfo("en-US")),
+                Currency = Currency.TRY.ToString(),
+                BasketId = StringHelpers.GenerateUniqueCode(),
+                PaymentChannel = PaymentChannel.WEB.ToString(),
+                PaymentGroup = PaymentGroup.SUBSCRIPTION.ToString()
+            };
+
+            paymentRequest.PaymentCard = _mapper.Map<PaymentCard>(model.CardModel);
+
+            var user = _userManager.FindByIdAsync(model.UserId).Result;
+
+            var buyer = new Buyer
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Surname = user.Surname,
+                GsmNumber = user.PhoneNumber,
+                Email = user.Email,
+                IdentityNumber = "11111111110",
+                LastLoginDate = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}",
+                RegistrationDate = $"{user.CreatedDate:yyyy-MM-dd HH:mm:ss}",
                 RegistrationAddress = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
-                Ip = "85.34.78.112",
+                Ip = model.Ip,
                 City = "Istanbul",
                 Country = "Turkey",
                 ZipCode = "34732"
-
             };
+            paymentRequest.Buyer = buyer;
 
+            Address billingAddress = new Address
+            {
+                ContactName = "Jane Doe",
+                City = "Istanbul",
+                Country = "Turkey",
+                Description = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
+                ZipCode = "34742"
+            };
+            paymentRequest.BillingAddress = billingAddress;
 
+           
+            var basketItems = new List<BasketItem>();
+            var firstBasketItem = new BasketItem
+            {
+                Id = "BI101",
+                Name = "Binocular",
+                Category1 = "Collectibles",
+                Category2 = "Accessories",
+                ItemType = BasketItemType.VIRTUAL.ToString(),
+                Price = model.Price.ToString(new CultureInfo("en-US"))
+            };
+            basketItems.Add(firstBasketItem);
+            paymentRequest.BasketItems = basketItems;
 
             return paymentRequest;
 
-
         }
-        public InstallmentModel CheckInstallments(string binNumber,decimal price)
+
+        public InstallmentModel CheckInstallments(string binNumber, decimal price)
         {
-            var conversationId=GenerateConversationId();
+            var conversationId = GenerateConversationId();
             var request = new RetrieveInstallmentInfoRequest
             {
                 Locale = Locale.TR.ToString(),
-                ConversationId=conversationId,
+                ConversationId = conversationId,
                 BinNumber = binNumber,
-                Price = price.ToString(new CultureInfo("en-Us")),
+                Price = price.ToString(new CultureInfo("en-US")),
             };
+
             var result = InstallmentInfo.Retrieve(request, _options);
-            if (result.Status == "failure") 
-            { 
+            if (result.Status == "failure")
+            {
                 throw new Exception(result.ErrorMessage);
             }
+
             if (result.ConversationId != conversationId)
             {
-                throw new Exception("Hatalı istek oluşturuldu");
+                throw new Exception("Hatalı istek oluturuldu");
             }
 
             var resultModel = _mapper.Map<InstallmentModel>(result.InstallmentDetails[0]);
-            Console.WriteLine();
+
             return resultModel;
         }
 
@@ -108,8 +135,7 @@ namespace ItServiceApp.Services
         {
             var request = this.InitialPaymentRequest(model);
             var payment = Payment.Create(request, _options);
-
-            return null;
+            return _mapper.Map<PaymentResponseModel>(payment);
         }
     }
 }

@@ -56,20 +56,14 @@ namespace ItServiceApp.Controllers
 
             };
 
-           var installmentInfo= _paymentService.CheckInstallments(paymentModel.CardModel.CardNumber.Substring(0, 6),
-              paymentModel.Price);
+            var installmentInfo = _paymentService.CheckInstallments(paymentModel.CardModel.CardNumber.Substring(0, 6), paymentModel.Price);
 
-            var instalmentNumber = installmentInfo.InstallmentPrices.FirstOrDefault(x => x.InstallmentNumber == model.Installment);
-            if (instalmentNumber != null)
-            {
-                paymentModel.PaidPrice = decimal.Parse(instalmentNumber.TotalPrice);
+            var installmentNumber =
+                installmentInfo.InstallmentPrices.FirstOrDefault(x => x.InstallmentNumber == model.Installment);
 
-            }
-            else
-            {
-                paymentModel.PaidPrice = decimal.Parse(installmentInfo.InstallmentPrices[0].TotalPrice);
-            }
+            paymentModel.PaidPrice = decimal.Parse(installmentNumber != null ? installmentNumber.TotalPrice.Replace('.', ',') : installmentInfo.InstallmentPrices[0].TotalPrice.Replace('.', ','));
 
+            //legacy code
 
             var result = _paymentService.Pay(paymentModel);
             return View();
