@@ -19,7 +19,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\Models\" />
     <Folder Include="Areas\Admin\Controllers\Data\" />
-    <Folder Include="Areas\Admin\Controllers\Views\Shared\Partials\" />
   </ItemGroup>
 
 </Project>
