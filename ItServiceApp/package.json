@@ -1,0 +1,23 @@
+{
+  "name": "itserviceapp",
+  "version": "1.0.0",
+  "description": "IT Servis Uygulaması",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FulyaSariyar/WM_4WebApp.git"
+  },
+  "author": "Fulya Sarıyar Abdullah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FulyaSariyar/WM_4WebApp/issues"
+  },
+  "homepage": "https://github.com/FulyaSariyar/WM_4WebApp#readme",
+  "dependencies": {
+    "devextreme": "^21.2.4",
+    "devextreme-aspnet-data": "^2.8.6"
+  }
+}
