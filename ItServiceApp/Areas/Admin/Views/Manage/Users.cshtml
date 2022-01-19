@@ -50,6 +50,7 @@
 {
 
 <script>
+    var dataGrid=null;
     $(()=> {
         console.log("açıldı")
         var userData = null;
@@ -72,7 +73,7 @@
             }
         });
         function loadGrid() {
-            $('#dxGrid').dxDataGrid({
+           dataGrid= $('#dxGrid').dxDataGrid({
                 showColumnLines:true,
                 allowColumnResizing:true,
                 showRowLines:true,
@@ -104,6 +105,9 @@
                     allowedPageSizes:[5, 15, 30, 45],
                     showInfo:true
                 },
+                selection:{
+                    mode:"multiple"
+                },
                 columns: [
                     {
                         caption:'Id',
@@ -122,10 +126,29 @@
                     {
                         caption:'E-Posta',
                         dataField:"email",
+                    },
+                    {
+                        caption:'Kayıt Tarihi',
+                        dataField:"createdDate",
+                        dataType:"date",
+                        format:'dd/MM/yyyy',
+                        sortOrder:"desc"
+                    },
+                    {
+                        caption:'Detay',
+                        cellTemplate:function (container, options){
+                            console.log(options);
+                            var current =options.data;
+                            var url='@Url.Action("UserDetail", "Manage")'+'/'+current.id;
+                           $("<a href=" + url + "/>")
+                              .text("Detay")
+                              .addClass('btn btn-block btn-info btn-sm')
+                              .appendTo(container);
+                        }
                     }
                     ],
                 showBorders: true,
-            });
+            }).dxDataGrid("instance");
         }
     })
 </script>
