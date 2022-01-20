@@ -48,10 +48,10 @@
 
 @section Scripts
 {
-
+    <script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"> </script>
 <script>
-    var dataGrid=null;
-    $(()=> {
+    //var dataGrid=null;
+    @*$(()=> {
         console.log("açıldı")
         var userData = null;
        $.ajax({
@@ -71,15 +71,34 @@
                 console.log(b);
                 console.log(c);
             }
-        });
+        });*@
+        var dataGrid=null;
+        $(()=>{
+            var url='../../../api/userapi';
+        
         function loadGrid() {
            dataGrid= $('#dxGrid').dxDataGrid({
+               remoteOperations:{paging:true, filtering:true,sorting:true,grouping:true,summary:true,groupPaging:true},
+                dataSource: DevExpress.data.AspNet.createStore({
+                key: 'id',
+                loadUrl: `${url}/getusers`,
+                //insertUrl: `${url}/InsertOrder`,
+                updateUrl: `${url}/updateusers`
+                //deleteUrl: `${url}/DeleteOrder`,
+                //onBeforeSend(method, ajaxOptions) {
+                //ajaxOptions.xhrFields = { withCredentials: true };
+                //},
+                }),
+                editing:{
+                    mode:'form',
+                    allowUpdating:true
+                },
+                remoteOperations:true,
                 showColumnLines:true,
                 allowColumnResizing:true,
                 showRowLines:true,
                 rowAlternationEnable:true,
                 showBorders:true,
-                dataSource: userData,
                 searchPanel:{
                     visible:true,
                     width:240,
@@ -113,7 +132,8 @@
                         caption:'Id',
                         dataField:"id",
                         visible:false,
-                        allowFiltering:false
+                        allowFiltering:false,
+                        formItem:{visible:false}
                     },
                      {
                         caption:'Ad',
@@ -126,6 +146,11 @@
                     {
                         caption:'E-Posta',
                         dataField:"email",
+                    },
+                    {
+                        caption:'Email Onay',
+                        dataField:'emailConfirmed',
+                        dataType:'boolean'
                     },
                     {
                         caption:'Kayıt Tarihi',
@@ -144,12 +169,14 @@
                               .text("Detay")
                               .addClass('btn btn-block btn-info btn-sm')
                               .appendTo(container);
-                        }
+                        },
+                         formItem:{visible:false}
                     }
                     ],
                 showBorders: true,
             }).dxDataGrid("instance");
         }
+        loadGrid();
     })
 </script>
 }

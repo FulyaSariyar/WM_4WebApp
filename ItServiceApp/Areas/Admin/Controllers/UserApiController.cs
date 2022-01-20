@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
+using DevExtreme.AspNet.Data;
+using ItServiceApp.Extensions;
 using ItServiceApp.Models.Identity;
 using ItServiceApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ItServiceApp.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [ApiController]
     [Authorize(Roles = "Admin")]
     public class UserApiController : ControllerBase
     {
@@ -23,15 +26,35 @@ namespace ItServiceApp.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetUsers()
+        public IActionResult GetUsers(DataSourceLoadOptions loadOptions)
         {
-            var users = _userManager.Users.OrderBy(x => x.CreatedDate).ToList();
-            return Ok(new JsonResponseViewModel()
-            {
-                Data = users
-            });
+            var data = _userManager.Users;
+            return Ok(DataSourceLoader.Load(data, loadOptions));
+            
         }
+        [HttpPut]
+        public async Task<IActionResult> UpdateUsers(string key, string values)
+        {
+            var data = _userManager.Users.FirstOrDefault(x => x.Id == key);
+            if (data == null)
+                return StatusCode(StatusCodes.Status409Conflict, new JsonResponseViewModel()
+                {
+                    IsSuccess = false,
+                    ErrorMessage="Kullanıcı Bulunamadı"
+                });
+            JsonConvert.PopulateObject(values, data);
+            if (!TryValidateModel(data))
+                return BadRequest(ModelState.ToFullErrorString());
 
+            var result = await _userManager.UpdateAsync(data);
+            if (!result.Succeeded)
+                return BadRequest(new JsonResponseViewModel()
+                {
+                  IsSuccess=false,
+                  ErrorMessage="Kullanıcı Güncellenemedi"
+                });
+            return Ok(new JsonResponseViewModel());
+        }
         [HttpGet]
         public IActionResult GetTest()
         {
