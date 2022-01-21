@@ -48,8 +48,8 @@
 
 @section Scripts
 {
-    <script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
-    <script>
+<script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+<script>
     var dataGrid = null;
     $(() => {
         var url = '../../../api/userapi';
@@ -61,7 +61,6 @@
                     loadUrl: `${url}/getusers`,
                     updateUrl: `${url}/updateusers`
                     //insertUrl: `${url}/InsertOrder`,
-
                     //deleteUrl: `${url}/DeleteOrder`,
                     //onBeforeSend(method, ajaxOptions) {
                     //    ajaxOptions.xhrFields = { withCredentials: true };
@@ -145,7 +144,6 @@
                                 .text("Detay")
                                 .addClass('btn btn-block btn-info btn-sm')
                                 .appendTo(container);
-
                         },
                         formItem: { visible: false }
                     }
@@ -173,7 +171,7 @@
                                     },
                                     {
                                         caption : "İl",
-                                        dataField: "state.city.name",
+                                        dataField: "state.city.id",
                                         lookup: {
                                             dataSource: {
                                                 store: DevExpress.data.AspNet.createStore({
@@ -189,16 +187,20 @@
                                     },
                                     {
                                         caption : "İlçe",
-                                        dataField: "state.name",
+                                        dataField: "stateId",
                                         lookup: {
-                                            dataSource: {
-                                                store: DevExpress.data.AspNet.createStore({
-                                                    key: "id",
-                                                    loadUrl: "../../../api/addressapi/statelookup"
-                                                }),
-                                                _fnFeatureHtmlPaginate: true,
-                                                pageSize: 10
+                                            dataSource(opt) {
+                                                console.log(opt);
+                                                return {
+                                                    store: DevExpress.data.AspNet.createStore({
+                                                        key: "id",
+                                                        loadUrl: "../../../api/addressapi/statelookup"
+                                                    }),
+                                                    filter: opt.data ? ['CityId', '=', opt.data.state.cityId] : null
+                                                };
                                             },
+                                            _fnFeatureHtmlPaginate: true,
+                                            pageSize: 10,
                                             displayExpr: "text",
                                             valueExpr: "value"
                                         }
@@ -218,7 +220,6 @@
                                     insertUrl: "../../../api/addressapi/insert",
                                     updateUrl: "../../../api/addressapi/update",
                                     deleteUrl: "../../../api/addressapi/delete"
-
                                     //onBeforeSend(method, ajaxOptions) {
                                     //    ajaxOptions.xhrFields = { withCredentials: true };
                                     //}
@@ -228,8 +229,7 @@
                 },
             }).dxDataGrid("instance");
         }
-
         loadGrid();
     });
-    </script>
-    }
+</script>
+}
