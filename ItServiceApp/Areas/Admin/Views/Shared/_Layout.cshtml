@@ -11,54 +11,59 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="~/admin-assets/images/favicon.ico">
-    <link rel="stylesheet" href="~/admin-assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/admin-assets/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="~/admin-assets/css/icons.min.css" />
-    <link rel="stylesheet" href="~/admin-assets/css/metisMenu.min.css" />
-    <link rel="stylesheet" href="~/admin-assets/css/app.min.css" />
-    @await RenderSectionAsync("Styles",required:false)
+
+    <link href="~/admin-assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/admin-assets/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/admin-assets/css/icons.min.css" rel="stylesheet" />
+    <link href="~/admin-assets/css/metisMenu.min.css" rel="stylesheet" />
+    <link href="~/admin-assets/css/app.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/vendor/devextreme/dist/css/dx.dark.css">
+
+    @await RenderSectionAsync("styles", false)
 </head>
 
 <body>
     <!-- leftbar-tab-menu -->
-    <partial name="Partials/_leftbar-tab-menu" />
-    <!-- end leftbar-tab-menu-->
-    <!-- Top Bar Start -->
-    <partial name="Partials/_top-bar" />
-    <!-- Top Bar End -->
+    <partial name="Partials/_leftbar-tab-menu">
+        <!-- end leftbar-tab-menu-->
+        <!-- Top Bar Start -->
+        <partial name="Partials/_top-bar">
+            <!-- Top Bar End -->
 
-    <div class="page-wrapper">
-        <!-- Page Content-->
-        <div class="page-content-tab">
-            <!-- main container -->
-            <div class="container-fluid">
-                @RenderBody()
+            <div class="page-wrapper">
+                <!-- Page Content-->
+                <div class="page-content-tab">
+                    <!-- main container -->
+                    <div class="container-fluid">
+                        @RenderBody()
+                    </div>
+                    <!-- end container -->
+                    <!-- right bar -->
+                    <partial name="Partials/_right-bar">
+                        <!-- end right bar -->
+                        <!--footer-->
+                        <partial name="Partials/_footer">
+                            <!--end footer-->
+                </div>
+                <!-- end page content -->
             </div>
-            <!-- end container -->
-            <!-- right bar -->
-            <partial name="Partials/_right-bar" />
-            <!-- end right bar -->
-            <!--footer-->
-            <partial name="Partials/_footer" />
-            <!--end footer-->
-        </div>
-        <!-- end page content -->
-    </div>
-    <!-- end page-wrapper -->
-    <script src="~/admin-assets/js/jquery.min.js"></script>
-    <script src="~/admin-assets/js/jquery-ui.min.js"></script>
-    <script src="~/admin-assets/js/bootstrap.bundle.min.js"></script>
-    <script src="~/admin-assets/js/metismenu.min.js"></script>
-    <script src="~/admin-assets/js/waves.js"></script>
-    <script src="~/admin-assets/js/feather.min.js"></script>
-    <script src="~/admin-assets/js/jquery.slimscroll.min.js"></script>
-    <script src="~/admin-assets/plugins/apexcharts/apexcharts.min.js"></script>
-    <script src="~/admin-assets/js/app.js"></script>
-    <script type="text/javascript" src="~/vendor/exceljs/dist/exceljs.min.js"></script>
-    <script type="text/javascript" src="~/vendor/file-saver/dist/fileSaver.min.js"></script>
-    <script type="text/javascript" src="~/vendor/jszip/dist/jszip.min.js"></script>
-    <script type="text/javascript" src="~/vendor/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="~/vendor/devextreme/dist/js/dx.all.js"></script>
-    @await RenderSectionAsync("Scripts",required:false)
+            <!-- end page-wrapper -->
+            <script src="~/admin-assets/js/jquery.min.js"></script>
+            <script src="~/admin-assets/js/jquery-ui.min.js"></script>
+            <script src="~/admin-assets/js/bootstrap.bundle.min.js"></script>
+            <script src="~/admin-assets/js/metismenu.min.js"></script>
+            <script src="~/admin-assets/js/waves.js"></script>
+            <script src="~/admin-assets/js/feather.min.js"></script>
+            <script src="~/admin-assets/js/jquery.slimscroll.min.js"></script>
+            <script src="~/admin-assets/plugins/apexcharts/apexcharts.min.js"></script>
+            <script src="~/admin-assets/js/app.js"></script>
+            <script type="text/javascript" src="~/vendor/exceljs/dist/exceljs.min.js"></script>
+            <script type="text/javascript" src="~/vendor/file-saver/dist/fileSaver.min.js"></script>
+            <script type="text/javascript" src="~/vendor/jszip/dist/jszip.min.js"></script>
+            <script type="text/javascript" src="~/vendor/jquery/dist/jquery.min.js"></script>
+            <script type="text/javascript" src="~/vendor/devextreme/dist/js/dx.all.js"></script>
+            <script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+
+            @await RenderSectionAsync("Scripts", false)
 </body>
 </html>
