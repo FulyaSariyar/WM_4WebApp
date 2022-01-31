@@ -12,6 +12,27 @@ namespace ItServiceApp.Data
         {
             
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+
+            builder.Entity<SubscriptionType>()
+                .Property(x => x.Price)
+                .HasPrecision(8,2);
+
+            builder.Entity<Subscription>()
+                .Property(x => x.Amount)
+                .HasPrecision(8, 2);
+
+            builder.Entity<Subscription>()
+                .Property(x => x.PaidAmount)
+                .HasPrecision(8, 2);
+
+            //builder.Entity<SubscriptionType>()
+            //    .Property(x => x.Name).IsRequired();
+        }
         public DbSet<Deneme> Denemeler { get; set; }
         public DbSet<Address> Addreses { get; set; }
         public DbSet<City> Cities { get; set; }
