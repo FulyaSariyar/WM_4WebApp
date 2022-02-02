@@ -1,4 +1,5 @@
 ﻿using ItServiceApp.Models.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,6 +7,7 @@ namespace ItServiceApp.Models.Entities
 {
     public class Address : BaseEntity
     {
+       
         public string Line { get; set; }
         public string PostCode { get; set; }
         public AddressTypes AddressType { get; set; }

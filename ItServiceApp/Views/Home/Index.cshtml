@@ -1,7 +1,4 @@
-﻿@model List<SubscriptionsViewModel>
-
-
-@{
+﻿@{
     ViewBag.Title = "Anasayfa";
 }
 <!--====== Banner Slider Start ======-->
@@ -66,5 +63,6 @@
         </div>
     </section>
     <!--====== Banner Slider End ======-->
-    <partial name="Partials/_PricePartial"/>
+   @* <partial name="Partials/_PricePartial"/>*@
+    @await Component.InvokeAsync("PricingTable")
 

@@ -27,12 +27,12 @@
                     @foreach (var item in Model.Where(x => x.Month == 1))
                     {
                         <div class="col-lg-3 col-md-6 col-sm-8 mt-30">
-                            <div class="pricing-plan-item" style="background-image: url(~/user-assets/img/plans-thumb.jpg);">
+                            <div class="pricing-plan-item" style="background-image: url(../../../..//user-assets/img/plans-thumb.jpg);">
                                 <p class="plan-name">@item.Name</p>
                                 <h3 class="price"><span>@item.Price</span> ₺</h3>
                                 <span class="plan-duration">Per @item.Month Month</span>
                                 <p>@item.Description</p>
-                                <a class="plans-btn" href="#">Purchase Now</a>
+                                <a class="plans-btn" asp-controller="Payment" asp-action="Purchase" asp-route-id="@item.Id">Purchase Now</a>
                             </div>
                         </div>
                     }
@@ -43,12 +43,12 @@
                     @foreach (var item in Model.Where(x => x.Month == 12))
                     {
                         <div class="col-lg-3 col-md-6 col-sm-8 mt-30">
-                            <div class="pricing-plan-item" style="background-image: url(~/user-assets/img/plans-thumb.jpg);">
+                            <div class="pricing-plan-item" style="background-image: url(../../../..//user-assets/img/plans-thumb.jpg);">
                                 <p class="plan-name">@item.Name</p>
                                 <h3 class="price"><span>@item.Price</span> ₺</h3>
                                 <span class="plan-duration">Per @item.Month Month</span>
                                 <p>@item.Description</p>
-                                <a class="plans-btn" href="#">Purchase Now</a>
+                                <a class="plans-btn" asp-controller="Payment" asp-action="Purchase" asp-route-id="@item.Id">Purchase Now</a>
                             </div>
                         </div>
                     }

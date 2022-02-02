@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ItServiceApp.Models.Entities
 {
@@ -10,6 +11,7 @@ namespace ItServiceApp.Models.Entities
         public string  Description { get; set; }
 
         public decimal Price  { get; set; }
+       
 
     }
 }
