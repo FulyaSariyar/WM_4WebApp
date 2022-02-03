@@ -125,6 +125,13 @@ namespace ItServiceApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Purchase(PaymentViewModel model)
         {
+            var addresses = _dbContext.Addreses
+               .Where(x => x.UserId == HttpContext.GetUserId())
+               .ToList()
+               .Select(x => _mapper.Map<AddressViewModel>(x))
+               .ToList();
+
+            ViewBag.Addresses = addresses;
             var type = await _dbContext.SubscriptionTypes.FindAsync(Guid.Parse(model.BasketModel.Id));
 
             var basketModel = new BasketModel()
@@ -137,6 +144,14 @@ namespace ItServiceApp.Controllers
             };
 
             var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+
+            var data = _dbContext.SubscriptionTypes.Find(Guid.Parse(model.BasketModel.Id));
+
+
+            var model1 = _mapper.Map<SubscriptionsViewModel>(data);
+            ViewBag.Subs = model1;
+
+
 
             var address = _dbContext.Addreses
                 .Include(x => x.State.City)

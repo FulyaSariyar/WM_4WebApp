@@ -16,8 +16,8 @@ namespace ItServiceApp.Models.Entities
         [StringLength(450)]
         public string UserId { get; set; }
 
+        
 
-       
 
         [ForeignKey(nameof(StateId))]
         public virtual State State  { get; set; }
