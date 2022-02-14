@@ -1,4 +1,4 @@
-﻿namespace ItServiceApp.Core.ComplexTypes
+﻿namespace ItServiceApp.Core.Payment
 {
     public class AddressModel
     {

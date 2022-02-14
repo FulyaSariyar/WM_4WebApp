@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ItServiceApp.Migrations
+namespace ItServiceApp.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220131082244_SubsPrice")]
-    partial class SubsPrice
+    [Migration("20220112084530_Eticaret1")]
+    partial class Eticaret1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,9 +49,9 @@ namespace ItServiceApp.Migrations
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UpdateUser")
+                    b.Property<DateTime>("UpdateUser")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasMaxLength(450)
@@ -127,8 +127,7 @@ namespace ItServiceApp.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Amount")
-                        .HasPrecision(8, 2)
-                        .HasColumnType("decimal(8,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -141,8 +140,7 @@ namespace ItServiceApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("PaidAmount")
-                        .HasPrecision(8, 2)
-                        .HasColumnType("decimal(8,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("SubscriptionTypeId")
                         .HasColumnType("uniqueidentifier");
@@ -150,9 +148,9 @@ namespace ItServiceApp.Migrations
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UpdateUser")
+                    b.Property<DateTime>("UpdateUser")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasMaxLength(450)
@@ -191,16 +189,12 @@ namespace ItServiceApp.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal>("Price")
-                        .HasPrecision(8, 2)
-                        .HasColumnType("decimal(8,2)");
-
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UpdateUser")
+                    b.Property<DateTime>("UpdateUser")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -427,7 +421,7 @@ namespace ItServiceApp.Migrations
                         .IsRequired();
 
                     b.HasOne("ItServiceApp.Models.Identity.ApplicationUser", "User")
-                        .WithMany("Addresses")
+                        .WithMany("Address")
                         .HasForeignKey("UserId");
 
                     b.Navigation("State");
@@ -521,7 +515,7 @@ namespace ItServiceApp.Migrations
 
             modelBuilder.Entity("ItServiceApp.Models.Identity.ApplicationUser", b =>
                 {
-                    b.Navigation("Addresses");
+                    b.Navigation("Address");
 
                     b.Navigation("Subscriptions");
                 });

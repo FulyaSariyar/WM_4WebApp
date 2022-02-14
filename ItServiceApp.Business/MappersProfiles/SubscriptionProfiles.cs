@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ItServiceApp.Models.Entities;
-using ItServiceApp.ViewModels;
+using ItServiceApp.Core.Entities;
+using ItServiceApp.Core.ViewModels;
 
-namespace ItServiceApp.MappersProfiles
+namespace ItServiceApp.Business.MappersProfiles
 {
     public class SubscriptionProfiles: Profile
     {

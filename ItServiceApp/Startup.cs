@@ -1,7 +1,9 @@
+using ItServiceApp.Business.MappersProfiles;
+using ItServiceApp.Business.Services.Email;
+using ItServiceApp.Business.Services.Payment;
+using ItServiceApp.Core.Identity;
 using ItServiceApp.Data;
 using ItServiceApp.InjectOrnek;
-using ItServiceApp.MappersProfiles;
-using ItServiceApp.Models.Identity;
 using ItServiceApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,10 +16,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ItServiceApp
 {

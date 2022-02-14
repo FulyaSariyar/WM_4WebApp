@@ -4,14 +4,16 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using AutoMapper;
 using ItServiceApp.Extensions;
-using ItServiceApp.Models;
-using ItServiceApp.Models.Identity;
+using ItServiceApp.Core.Entities;
+using ItServiceApp.Core.Identity;
 using ItServiceApp.Services;
-using ItServiceApp.ViewModels;
+using ItServiceApp.Core.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using ItServiceApp.Business.Services.Email;
+using ItServiceApp.Core.ComplexTypes;
 
 namespace ItServiceApp.Controllers
 {

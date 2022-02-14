@@ -4,16 +4,14 @@ using ItServiceApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ItServiceApp.Migrations
+namespace ItServiceApp.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220112084530_Eticaret1")]
-    partial class Eticaret1
+    partial class MyContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,9 +47,9 @@ namespace ItServiceApp.Migrations
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdateUser")
+                    b.Property<string>("UpdateUser")
                         .HasMaxLength(128)
-                        .HasColumnType("datetime2");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("UserId")
                         .HasMaxLength(450)
@@ -127,7 +125,8 @@ namespace ItServiceApp.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(8, 2)
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -140,7 +139,8 @@ namespace ItServiceApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("PaidAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(8, 2)
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<Guid>("SubscriptionTypeId")
                         .HasColumnType("uniqueidentifier");
@@ -148,9 +148,9 @@ namespace ItServiceApp.Migrations
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdateUser")
+                    b.Property<string>("UpdateUser")
                         .HasMaxLength(128)
-                        .HasColumnType("datetime2");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("UserId")
                         .HasMaxLength(450)
@@ -189,12 +189,16 @@ namespace ItServiceApp.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<decimal>("Price")
+                        .HasPrecision(8, 2)
+                        .HasColumnType("decimal(8,2)");
+
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdateUser")
+                    b.Property<string>("UpdateUser")
                         .HasMaxLength(128)
-                        .HasColumnType("datetime2");
+                        .HasColumnType("nvarchar(128)");
 
                     b.HasKey("Id");
 
@@ -421,7 +425,7 @@ namespace ItServiceApp.Migrations
                         .IsRequired();
 
                     b.HasOne("ItServiceApp.Models.Identity.ApplicationUser", "User")
-                        .WithMany("Address")
+                        .WithMany("Addresses")
                         .HasForeignKey("UserId");
 
                     b.Navigation("State");
@@ -515,7 +519,7 @@ namespace ItServiceApp.Migrations
 
             modelBuilder.Entity("ItServiceApp.Models.Identity.ApplicationUser", b =>
                 {
-                    b.Navigation("Address");
+                    b.Navigation("Addresses");
 
                     b.Navigation("Subscriptions");
                 });

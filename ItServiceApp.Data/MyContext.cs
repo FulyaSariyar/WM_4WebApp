@@ -1,5 +1,5 @@
-﻿using ItServiceApp.Models.Entities;
-using ItServiceApp.Models.Identity;
+﻿using ItServiceApp.Core.Entities;
+using ItServiceApp.Core.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,7 +33,7 @@ namespace ItServiceApp.Data
             //builder.Entity<SubscriptionType>()
             //    .Property(x => x.Name).IsRequired();
         }
-        public DbSet<Deneme> Denemeler { get; set; }
+        //public DbSet<Deneme> Denemeler { get; set; }
         public DbSet<Address> Addreses { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<State> States { get; set; }

@@ -1,9 +1,9 @@
-﻿using ItServiceApp.Models.Identity;
+﻿using ItServiceApp.Core.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ItServiceApp.Models.Entities
+namespace ItServiceApp.Core.Entities
 {
     public class Address : BaseEntity
     {

@@ -1,6 +1,6 @@
 ﻿using Iyzipay;
 
-namespace ItServiceApp.Core
+namespace ItServiceApp.Core.Payment
 {
     public class IyzicoPaymentOptions:Options
     {

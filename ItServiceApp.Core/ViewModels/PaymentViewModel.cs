@@ -1,4 +1,6 @@
-﻿using ItServiceApp.Models;
+﻿
+
+using ItServiceApp.Core.Payment;
 
 namespace ItServiceApp.Core.ViewModels
 {

@@ -7,7 +7,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ItServiceApp.Services
+namespace ItServiceApp.Business.Services.Email
 {
     public class EmailSender : IEmailSender
     {
@@ -20,7 +20,7 @@ namespace ItServiceApp.Services
         public string Pasword => _configuration.GetSection("EmailOptions:Password").Value;
         public string Smtp => _configuration.GetSection("EmailOptions:Smtp").Value;
         public int SmtpPort => Convert.ToInt32(_configuration.GetSection("EmailOptions:SmtpPort").Value);
-        public async Task SendAsync(EmailMessage message)
+        public async Task SendAsync(Core.ComplexTypes.EmailMessage message)
         {
 
             var mail = new MailMessage { From = new MailAddress(this.SenderMail) };

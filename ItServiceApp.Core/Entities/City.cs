@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ItServiceApp.Models.Entities
+namespace ItServiceApp.Core.Entities
 {
     public class City
     {

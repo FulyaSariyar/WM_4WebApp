@@ -1,7 +1,8 @@
-﻿using ItServiceApp.Models;
+﻿using ItServiceApp.Core.ComplexTypes;
+using ItServiceApp.Models;
 using System.Threading.Tasks;
 
-namespace ItServiceApp.Services
+namespace ItServiceApp.Business.Services.Email
 {
     public interface IEmailSender
     {

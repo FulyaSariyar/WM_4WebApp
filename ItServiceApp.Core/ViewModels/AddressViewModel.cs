@@ -1,4 +1,5 @@
-﻿using ItServiceApp.Models.Entities;
+﻿using ItServiceApp.Core.Entities;
+using ItServiceApp.Models.Entities;
 using System;
 using System.ComponentModel.DataAnnotations;
 

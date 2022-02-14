@@ -1,7 +1,7 @@
-﻿using ItServiceApp.Models.Payment;
+﻿using ItServiceApp.Core.Payment;
 using System.Collections.Generic;
 
-namespace ItServiceApp.Services
+namespace ItServiceApp.Business.Services.Payment
 {
     public interface IPaymentService
     {

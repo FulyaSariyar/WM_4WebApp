@@ -1,4 +1,4 @@
-﻿namespace ItServiceApp.Core
+﻿namespace ItServiceApp.Core.Payment
 {
     public class BasketModel
     {

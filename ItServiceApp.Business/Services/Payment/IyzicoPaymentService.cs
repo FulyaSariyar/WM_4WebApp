@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using ItServiceApp.Business.Services.Payment;
+using ItServiceApp.Core;
+using ItServiceApp.Core.Identity;
+using ItServiceApp.Core.Payment;
 using ItServiceApp.Models;
-using ItServiceApp.Models.Identity;
-using ItServiceApp.Models.Payment;
 using Iyzipay.Model;
 using Iyzipay.Request;
 using Microsoft.AspNetCore.Identity;

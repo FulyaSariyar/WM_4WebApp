@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ItServiceApp.Data;
 using ItServiceApp.InjectOrnek;
-using ItServiceApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 

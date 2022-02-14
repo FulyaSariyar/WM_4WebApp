@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ItServiceApp.Migrations
+namespace ItServiceApp.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220121065045_Duzeltme")]
-    partial class Duzeltme
+    [Migration("20211223090441_Identity")]
+    partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,69 +20,6 @@ namespace ItServiceApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ItServiceApp.Models.Entities.Address", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("AddressType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedUser")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Line")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StateId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdateUser")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("UserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StateId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Addreses");
-                });
-
-            modelBuilder.Entity("ItServiceApp.Models.Entities.City", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cities");
-                });
 
             modelBuilder.Entity("ItServiceApp.Models.Entities.Deneme", b =>
                 {
@@ -98,107 +35,6 @@ namespace ItServiceApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Denemeler");
-                });
-
-            modelBuilder.Entity("ItServiceApp.Models.Entities.State", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.ToTable("States");
-                });
-
-            modelBuilder.Entity("ItServiceApp.Models.Entities.Subscription", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedUser")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("PaidAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("SubscriptionTypeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdateUser")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("UserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubscriptionTypeId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Subscriptions");
-                });
-
-            modelBuilder.Entity("ItServiceApp.Models.Entities.SubscriptionType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedUser")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Month")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdateUser")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SubscriptionTypes");
                 });
 
             modelBuilder.Entity("ItServiceApp.Models.Identity.ApplicationRole", b =>
@@ -260,10 +96,6 @@ namespace ItServiceApp.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -294,6 +126,10 @@ namespace ItServiceApp.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("name")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -412,51 +248,6 @@ namespace ItServiceApp.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ItServiceApp.Models.Entities.Address", b =>
-                {
-                    b.HasOne("ItServiceApp.Models.Entities.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ItServiceApp.Models.Identity.ApplicationUser", "User")
-                        .WithMany("Addresses")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("State");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ItServiceApp.Models.Entities.State", b =>
-                {
-                    b.HasOne("ItServiceApp.Models.Entities.City", "City")
-                        .WithMany("States")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
-                });
-
-            modelBuilder.Entity("ItServiceApp.Models.Entities.Subscription", b =>
-                {
-                    b.HasOne("ItServiceApp.Models.Entities.SubscriptionType", "SubscriptionType")
-                        .WithMany()
-                        .HasForeignKey("SubscriptionTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ItServiceApp.Models.Identity.ApplicationUser", "User")
-                        .WithMany("Subscriptions")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("SubscriptionType");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("ItServiceApp.Models.Identity.ApplicationRole", null)
@@ -506,18 +297,6 @@ namespace ItServiceApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ItServiceApp.Models.Entities.City", b =>
-                {
-                    b.Navigation("States");
-                });
-
-            modelBuilder.Entity("ItServiceApp.Models.Identity.ApplicationUser", b =>
-                {
-                    b.Navigation("Addresses");
-
-                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }
