@@ -1,11 +1,12 @@
-﻿using ItServiceApp.Core.Identity;
+﻿using ItServiceApp.Core.Entities.Abstracts;
+using ItServiceApp.Core.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ItServiceApp.Core.Entities
 {
-    public class Address : BaseEntity
+    public class Address : BaseEntity<Guid>
     {
        
         public string Line { get; set; }

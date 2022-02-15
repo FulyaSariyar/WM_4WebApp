@@ -3,6 +3,7 @@ using ItServiceApp.Business.Services.Email;
 using ItServiceApp.Business.Services.Payment;
 using ItServiceApp.Core.Identity;
 using ItServiceApp.Data;
+using ItServiceApp.Extensions;
 using ItServiceApp.InjectOrnek;
 using ItServiceApp.Services;
 using Microsoft.AspNetCore.Builder;
@@ -77,6 +78,7 @@ namespace ItServiceApp
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IMyDependency, NewMyDependency>(); //Dikkat!!!!! loose coupling 
             services.AddScoped<IPaymentService, IyzicoPaymentService>();
+            services.AddAppRepositories();
 
 
             services.AddControllersWithViews()
